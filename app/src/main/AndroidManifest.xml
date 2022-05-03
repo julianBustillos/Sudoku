@@ -10,7 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Sudoku">
         <activity
-            android:name=".MainActivity"
+            android:name=".layer.ui.activity.MainActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
