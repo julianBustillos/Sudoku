@@ -3,15 +3,16 @@ package com.juju.sudoku.layer.ui.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
 
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class GridView extends View {
     public enum DrawMode { EMPTY, GIVEN, GUESSED, NOTE }
@@ -88,16 +89,19 @@ public class GridView extends View {
         {
             for (int j = 0; j < 9; j++)
             {
-                if (currentI == i || currentJ == j) {
-                    drawBackground(i, j, canvas);
+                if (currentI == i & currentJ == j) {
+                    drawBackground(i, j, true, canvas);
+                }
+                else if (currentI == i || currentJ == j) {
+                    drawBackground(i, j, false, canvas);
                 }
                 switch (cellState[getIndex(i, j)].mode)
                 {
                     case GIVEN:
-                        drawValue(i, j, canvas);
+                        drawValue(i, j, true, canvas);
                         break;
                     case GUESSED:
-                        drawValue(i, j, canvas);
+                        drawValue(i, j, false, canvas);
                         break;
                     case NOTE:
                         drawNotes(i, j, canvas);
@@ -108,8 +112,8 @@ public class GridView extends View {
         drawGrid(canvas);
     }
 
-    protected void drawBackground(int i, int j, Canvas canvas) {
-        paint.setColor(Color.GRAY);
+    protected void drawBackground(int i, int j, boolean isMain, Canvas canvas) {
+        paint.setColor(isMain ? getColorFromAttr(com.google.android.material.R.attr.colorControlActivated) : getColorFromAttr(com.google.android.material.R.attr.colorControlHighlight));
 
         float offset = thickness * 0.5f;
         float posXMin = offset + j * cellSize;
@@ -120,8 +124,8 @@ public class GridView extends View {
         canvas.drawRect(posXMin, posYMin, posXMax, posYMax, paint);
     }
 
-    protected void drawValue(int i, int j, Canvas canvas) {
-        paint.setColor(Color.BLACK);
+    protected void drawValue(int i, int j, boolean given, Canvas canvas) {
+        paint.setColor(getColorFromAttr(given ? com.google.android.material.R.attr.colorPrimaryVariant : com.google.android.material.R.attr.colorPrimary));
         paint.setTextSize(cellSize * 0.7f);
 
         float offset = thickness * 0.5f;
@@ -132,7 +136,7 @@ public class GridView extends View {
     }
 
     protected void drawNotes(int i, int j, Canvas canvas) {
-        paint.setColor(Color.BLACK);
+        paint.setColor(getColorFromAttr(com.google.android.material.R.attr.colorPrimary));
         paint.setTextSize(cellSize * 0.23f);
 
         float offset = thickness * 0.5f;
@@ -149,7 +153,7 @@ public class GridView extends View {
     }
 
     protected void drawGrid(Canvas canvas) {
-        paint.setColor(Color.BLACK);
+        paint.setColor(getColorFromAttr(com.google.android.material.R.attr.colorPrimary));
         float offset = thickness * 0.5f;
 
         for (int i = 0; i < 10; i++)
@@ -160,5 +164,12 @@ public class GridView extends View {
             canvas.drawLine(pos, 0f, pos, this.getHeight(), paint);
             canvas.drawLine(0f, pos, this.getWidth(), pos, paint);
         }
+    }
+
+    protected int getColorFromAttr(int attribute)
+    {
+        TypedValue typedValue=new TypedValue();
+        getContext().getTheme().resolveAttribute(attribute,typedValue,true);
+        return typedValue.data;
     }
 }
