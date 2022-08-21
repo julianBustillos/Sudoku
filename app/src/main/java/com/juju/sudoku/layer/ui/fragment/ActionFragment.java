@@ -45,7 +45,7 @@ public class ActionFragment extends Fragment {
         numButton[8] = fragmentView.findViewById(R.id.button_9);
         View.OnClickListener onClickNumber = view -> {
             NumButton button = (NumButton)view;
-            gridModel.setCurrentCellValue(button.getValue());
+            gridModel.setCurrent(button.getValue());
         };
         for (int k = 0; k < 9; k++) {
             numButton[k].setValue(k + 1);
@@ -53,15 +53,23 @@ public class ActionFragment extends Fragment {
         }
 
         Button clearButton = fragmentView.findViewById(R.id.button_clear);
-        View.OnClickListener onClickClear = view -> gridModel.clearCurrentCellValue();
+        View.OnClickListener onClickClear = view -> gridModel.clearCurrent();
         clearButton.setOnClickListener(onClickClear);
 
+        Button undoButton = fragmentView.findViewById(R.id.button_undo);
+        View.OnClickListener onClickUndo = view -> gridModel.undo();
+        undoButton.setOnClickListener(onClickUndo);
+
+        Button resetButton = fragmentView.findViewById(R.id.button_reset);
+        View.OnClickListener onClickReset = view -> gridModel.reset();//TODO CONFIRMATION POPUP
+        resetButton.setOnClickListener(onClickReset);
+
         ToggleButton noteButton = fragmentView.findViewById(R.id.button_note);
-        CompoundButton.OnCheckedChangeListener onCkeckedNote = (view, isChecked) -> {
+        CompoundButton.OnCheckedChangeListener onCheckedNote = (view, isChecked) -> {
             ToggleButton button = (ToggleButton)view;
             gridModel.setNoteStatus(isChecked);
         };
-        noteButton.setOnCheckedChangeListener(onCkeckedNote);
+        noteButton.setOnCheckedChangeListener(onCheckedNote);
 
         return fragmentView;
     }

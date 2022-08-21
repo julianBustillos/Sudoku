@@ -37,10 +37,15 @@ public class GridCell extends BaseObservable {
         return !given && currentValue > 0;
     }
 
+    public boolean isNote() { return !given && currentValue < 0; }
+
     public void setValue (int value) {
         if (!given && value != currentValue) {
+            if (currentValue < 0)
+            {
+                Arrays.fill(notes, false);
+            }
             currentValue = value;
-            Arrays.fill(notes, false);
             updated = true;
         }
     }
@@ -50,7 +55,7 @@ public class GridCell extends BaseObservable {
         if (currentValue > 0) {
             value.add(currentValue);
         }
-        else {
+        else if (currentValue < 0) {
             for (int k = 0; k < 9; k++) {
                 if (notes[k]) {
                     value.add(k + 1);
@@ -62,17 +67,38 @@ public class GridCell extends BaseObservable {
     }
 
     public void setNote (int value) {
-        if (!given && currentValue == 0) {
+        if (!given && currentValue <= 0) {
             notes[value - 1] = !notes[value - 1];
+            currentValue += notes[value - 1] ? -1 : 1;
             updated = true;
         }
     }
 
-    public void clear() {
-        if (!given) {
-            currentValue = 0;
-            Arrays.fill(notes, false);
-            updated = true;
+
+    public class Data extends BaseObservable {
+        private boolean isNote;
+        private List<Integer> value;
+
+        private Data(boolean isNote, List<Integer> value) {
+            this.isNote = isNote;
+            this.value = value;
+        }
+    }
+
+    public Data getData() {
+        return new Data(isNote(), getValue());
+    }
+
+    public void setData(Data data) {
+        if (!data.isNote) {
+            setValue(!data.value.isEmpty() ? data.value.get(0) : 0);
+        }
+        else
+        {
+            setValue(0);
+            for (int note : data.value) {
+                setNote(note);
+            }
         }
     }
 }

@@ -116,9 +116,32 @@
             android:textOff="N"
             android:textOn="N"
             app:layout_constraintBottom_toTopOf="@+id/button_1"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/button_undo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button_undo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="A"
+            app:layout_constraintBottom_toBottomOf="@+id/button_note"
+            app:layout_constraintEnd_toStartOf="@+id/button_reset"
+            app:layout_constraintStart_toEndOf="@+id/button_note"
+            app:layout_constraintTop_toTopOf="@+id/button_note"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <Button
+            android:id="@+id/button_reset"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="R"
+            app:layout_constraintBottom_toBottomOf="@+id/button_undo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/button_undo"
+            app:layout_constraintTop_toTopOf="@+id/button_undo"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <Button
             android:id="@+id/button_clear"

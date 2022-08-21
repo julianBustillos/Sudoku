@@ -45,7 +45,7 @@ public class GridFragment extends Fragment {
                         return true;
                     case MotionEvent.ACTION_UP:
                         int cellIndex = gridView.computeCellIndex(event.getX(), event.getY());
-                        gridModel.setCurrentCellIndex(cellIndex);
+                        gridModel.setCellIndex(cellIndex);
                         return true;
                     default:
                         return false;
@@ -65,9 +65,12 @@ public class GridFragment extends Fragment {
             public void onChanged(@Nullable final GridCell[] grid) {
                 for (int pos = 0; pos < 81; pos++) {
                     if (grid[pos].isUpdated()) {
-                        GridView.DrawMode mode = GridView.DrawMode.NOTE;
+                        GridView.DrawMode mode = GridView.DrawMode.EMPTY;
                         if (grid[pos].isGuessed()) {
                             mode = GridView.DrawMode.GUESSED;
+                        }
+                        else if (grid[pos].isNote()) {
+                            mode = GridView.DrawMode.NOTE;
                         }
                         else if (grid[pos].isGiven()) {
                             mode = GridView.DrawMode.GIVEN;
@@ -79,7 +82,7 @@ public class GridFragment extends Fragment {
             }
         };
 
-        gridModel.getCurrentCellIndex().observe(this.requireActivity(), cellIndexObserver);
+        gridModel.getCellIndex().observe(this.requireActivity(), cellIndexObserver);
         gridModel.getCurrentGrid().observe(this.requireActivity(), gridObserver);
         gridModel.initialize();
 
