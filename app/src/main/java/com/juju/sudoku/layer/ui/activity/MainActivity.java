@@ -6,12 +6,14 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 
 import com.juju.sudoku.R;
-import com.juju.sudoku.layer.data.object.GameLevel;
+import com.juju.sudoku.layer.ui.observable.GameLevel;
 
 public class MainActivity extends AppCompatActivity {
-    protected GameLevel.Value activityLevel = GameLevel.Value.EASY;
+    private final MutableLiveData<GameLevel.Value> level = new MutableLiveData<>(GameLevel.Value.EASY);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,18 +23,24 @@ public class MainActivity extends AppCompatActivity {
         Button startButton = findViewById(R.id.button_start);
         View.OnClickListener onClickStart = view -> {
             Intent intent = new Intent(MainActivity.this, GameActivity.class);
-            intent.putExtra(GameLevel.key, activityLevel);
+            intent.putExtra(GameLevel.key, level.getValue());
             MainActivity.this.startActivity(intent);
         };
         startButton.setOnClickListener(onClickStart);
 
         Button levelButton = findViewById(R.id.button_level);
-        setLevelText(levelButton, activityLevel);
         View.OnClickListener onClickLevel = view -> {
-            activityLevel = activityLevel.next();
-            setLevelText(levelButton, activityLevel);
+            level.setValue(level.getValue().next());
         };
         levelButton.setOnClickListener(onClickLevel);
+
+        final Observer<GameLevel.Value> levelObserver = new Observer<GameLevel.Value>() {
+            @Override
+            public void onChanged(final GameLevel.Value level) {
+                setLevelText(levelButton, level);
+            }
+        };
+        level.observe(this, levelObserver);
     }
 
     protected void setLevelText(Button levelButton, GameLevel.Value level) {

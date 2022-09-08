@@ -14,7 +14,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.juju.sudoku.R;
-import com.juju.sudoku.layer.data.object.GameLevel;
+import com.juju.sudoku.layer.ui.observable.GameLevel;
 import com.juju.sudoku.layer.ui.observable.GridCell;
 import com.juju.sudoku.layer.ui.view.GridView;
 import com.juju.sudoku.layer.ui.viewmodel.GridViewModel;

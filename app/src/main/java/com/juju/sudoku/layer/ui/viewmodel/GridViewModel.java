@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.juju.sudoku.layer.data.object.GameLevel;
+import com.juju.sudoku.layer.ui.observable.GameLevel;
 import com.juju.sudoku.layer.data.repository.GridRepository;
 import com.juju.sudoku.layer.ui.observable.GridCell;
 

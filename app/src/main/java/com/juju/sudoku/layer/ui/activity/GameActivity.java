@@ -10,7 +10,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.juju.sudoku.R;
-import com.juju.sudoku.layer.data.object.GameLevel;
+import com.juju.sudoku.layer.ui.observable.GameLevel;
 import com.juju.sudoku.layer.ui.fragment.GridFragment;
 import com.juju.sudoku.layer.ui.viewmodel.GridViewModel;
 

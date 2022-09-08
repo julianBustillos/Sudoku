@@ -1,4 +1,4 @@
-package com.juju.sudoku.layer.data.object;
+package com.juju.sudoku.layer.ui.observable;
 
 public class GameLevel {
     public static final String key = "GameLevel";

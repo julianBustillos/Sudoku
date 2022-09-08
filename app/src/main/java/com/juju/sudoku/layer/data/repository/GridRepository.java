@@ -1,6 +1,6 @@
 package com.juju.sudoku.layer.data.repository;
 
-import com.juju.sudoku.layer.data.object.GameLevel;
+import com.juju.sudoku.layer.ui.observable.GameLevel;
 import com.juju.sudoku.layer.ui.observable.GridCell;
 
 public class GridRepository {
