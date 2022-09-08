@@ -1,10 +1,11 @@
 package com.juju.sudoku.layer.data.repository;
 
+import com.juju.sudoku.layer.data.object.GameLevel;
 import com.juju.sudoku.layer.ui.observable.GridCell;
 
 public class GridRepository {
 
-    public GridCell[] fetchGrid() {
+    public GridCell[] fetchGrid(GameLevel.Value level) {
         int value[] = { 4, 2, 6, 5, 7, 1, 3, 9, 8,
                         8, 5, 7, 2, 9, 3, 1, 4, 6,
                         1, 3, 9, 4, 6, 8, 2, 7, 5,

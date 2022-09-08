@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.juju.sudoku.layer.data.object.GameLevel;
 import com.juju.sudoku.layer.data.repository.GridRepository;
 import com.juju.sudoku.layer.ui.observable.GridCell;
 
@@ -26,9 +27,9 @@ public class GridViewModel extends ViewModel {
         }
     }
 
-    public void initialize() {
+    public void initialize(GameLevel.Value level) {
         cellIndex.setValue(-1);
-        grid.setValue(repository.fetchGrid());
+        grid.setValue(repository.fetchGrid(level));
         noteStatus.setValue(false);
         actionsList.setValue(new LinkedList<>());
     }

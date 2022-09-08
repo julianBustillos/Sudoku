@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.juju.sudoku.R;
+import com.juju.sudoku.layer.data.object.GameLevel;
 import com.juju.sudoku.layer.ui.observable.GridCell;
 import com.juju.sudoku.layer.ui.view.GridView;
 import com.juju.sudoku.layer.ui.viewmodel.GridViewModel;
@@ -82,9 +83,11 @@ public class GridFragment extends Fragment {
             }
         };
 
+        Bundle args = getArguments();
+        GameLevel.Value level = (GameLevel.Value)args.getSerializable(GameLevel.key);
         gridModel.getCellIndex().observe(this.requireActivity(), cellIndexObserver);
         gridModel.getCurrentGrid().observe(this.requireActivity(), gridObserver);
-        gridModel.initialize();
+        gridModel.initialize(level);
 
         return fragmentView;
     }

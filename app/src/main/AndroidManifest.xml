@@ -23,6 +23,7 @@
 
         <activity
             android:name=".layer.ui.activity.GameActivity"
+            android:launchMode="singleInstance"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.GAME" />
